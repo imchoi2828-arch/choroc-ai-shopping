@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>초록마을 | AI 상품 등록 (Admin)</title>
+  <link rel="stylesheet" href="./css/reset.css" />
+  <link rel="stylesheet" href="./css/common.css" />
+  <link rel="stylesheet" href="./css/main.css" />
+  
+  <style>
+    .admin-wrap { max-width: 1050px; margin: 50px auto; padding: 20px; font-family: 'Pretendard', sans-serif; }
+    .admin-title { font-size: 26px; font-weight: 800; margin-bottom: 30px; color: #166534; border-bottom: 2px solid #166534; padding-bottom: 15px;}
+    .admin-grid { display: flex; gap: 30px; margin-bottom: 30px; }
+    .admin-box { flex: 1; background: #fff; border: 1px solid #e5e7eb; border-radius: 12px; padding: 30px; box-shadow: 0 4px 6px rgba(0,0,0,0.02); }
+    .admin-box h2 { font-size: 18px; font-weight: bold; margin-bottom: 20px; color: #333; }
+    
+    /* 업로드 영역 */
+    .upload-area { border: 2px dashed #d1d5db; border-radius: 8px; padding: 50px; text-align: center; cursor: pointer; background: #fafafa; transition: 0.3s; }
+    .upload-area:hover { border-color: #166534; background: #f0fdf4; }
+    #preview-img { max-width: 100%; max-height: 250px; display: none; margin: 15px auto 0; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+    
+    /* 입력 폼 영역 */
+    .input-group { margin-bottom: 20px; }
+    .input-group label { display: block; font-size: 14px; font-weight: bold; margin-bottom: 8px; color: #4b5563; }
+    .input-group input { width: 100%; padding: 12px; border: 1px solid #d1d5db; border-radius: 6px; box-sizing: border-box; outline: none; font-size: 15px; }
+    .input-group input:focus { border-color: #166534; box-shadow: 0 0 0 3px rgba(22, 101, 52, 0.1); }
+    
+    /* 버튼 */
+    .btn-submit { background: #166534; color: #fff; width: 100%; padding: 15px; border: none; border-radius: 6px; font-size: 16px; font-weight: bold; cursor: pointer; margin-top: 10px; transition: 0.2s; }
+    .btn-submit:hover { background: #14532d; }
+    .btn-ai { background: #2563eb; color: #fff; width: 100%; padding: 14px; border: none; border-radius: 6px; font-size: 15px; font-weight: bold; cursor: pointer; margin-top: 20px; transition: 0.2s; }
+    .btn-ai:hover { background: #1d4ed8; }
+  </style>
+</head>
+<body>
+
+  <header class="top">
+    <div class="topbar">
+      <div class="topbar__inner">
+        <div class="topbar__left">
+          <span>하루 만에 도착하는 초록마을 배송</span>
+        </div>
+        <div class="topbar__right" id="topLinks"></div>
+      </div>
+    </div>
+
+    <div class="top__inner">
+      <a href="./index.html" class="brand" id="brand">초록마을</a>
+
+      <div class="tools">
+        <label class="searchbox" aria-label="검색">
+          <input class="search" type="text" placeholder="상품을 검색하세요" />
+          <button class="searchbtn" type="button" aria-label="검색">⌕</button>
+        </label>
+        <button class="iconbtn" type="button" aria-label="마이페이지">👤</button>
+        <button class="iconbtn" type="button" aria-label="장바구니">🛒</button>
+      </div>
+    </div>
+
+    <div class="navrow">
+      <div class="navrow__inner">
+        <button class="allcat" type="button">
+          ☰ 전체카테고리
+        </button>
+        <nav class="nav2" id="nav2"></nav>
+        
+        <a href="ai_register.html" class="ai-admin-btn">AI 상품등록 (Admin)</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <div class="admin-wrap">
+        <h1 class="admin-title">🛠️ 스마트 상품 등록 (Admin)</h1>
+
+        <div class="admin-grid">
+            <div class="admin-box">
+                <h2>1. 상품 사진 업로드 (AI 비전 분석)</h2>
+                <div class="upload-area" id="upload-box" onclick="document.getElementById('file-input').click()">
+                    <div style="font-size: 40px; margin-bottom: 10px;">📸</div>
+                    <p id="upload-text" style="color: #666; font-weight: bold;">클릭하여 상품 사진을 올려주세요</p>
+                    <input type="file" id="file-input" style="display:none" accept="image/*">
+                    <img id="preview-img" src="" alt="미리보기">
+                </div>
+                <button class="btn-ai" onclick="analyzeImage()">✨ AI로 상품 정보 자동 완성</button>
+            </div>
+
+            <div class="admin-box">
+                <h2>2. 상품 정보 확인 및 DB 저장</h2>
+                <div class="input-group">
+                    <label>상품명 (AI 추천)</label>
+                    <input type="text" id="prod-name" placeholder="예: 무농약 깐마늘 200g">
+                </div>
+                <div class="input-group">
+                    <label>판매가 (원)</label>
+                    <input type="number" id="prod-price" placeholder="예: 4500">
+                </div>
+                <div class="input-group">
+                    <label>카테고리/태그</label>
+                    <input type="text" id="prod-tag" placeholder="예: 냉장 / 냉동 / 일반">
+                </div>
+                <button class="btn-submit" onclick="saveProduct()">💾 MySQL 공식 등록하기</button>
+            </div>
+        </div>
+
+        <div class="admin-box" style="margin-bottom: 30px;">
+            <h2>🤖 3. AI 어시스턴트 (상품 정보 질문)</h2>
+            <div class="chat-window" id="chat-window" style="height: 200px; overflow-y: auto; background: #f3f4f6; padding: 15px; border-radius: 8px; margin-bottom: 10px;">
+                <div style="background: #eef7e7; color: #166534; padding: 10px; border-radius: 8px; display: inline-block; font-size: 14px; margin-bottom: 8px;">
+                    운영자님! 사진을 분석한 후, 해당 상품에 대해 궁금한 점을 물어보세요.<br>
+                    (예: "이 상품 상세페이지 마케팅 문구 3줄로 요약해줘", "이 상품의 주 타겟층은?")
+                </div>
+            </div>
+            <div style="display: flex; gap: 10px;">
+                <input type="text" id="chat-input" placeholder="질문을 입력하세요..." style="flex: 1; padding: 12px; border: 1px solid #d1d5db; border-radius: 6px; outline: none; font-size: 15px;">
+                <button class="btn-submit" style="width: 100px; margin-top: 0; background: #166534;" onclick="askAi()">전송 🚀</button>
+            </div>
+        </div>
+
+        <div class="admin-box">
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;">
+                <h2 style="margin-bottom:0;">📦 4. 등록된 상품 리스트</h2>
+                <div style="display:flex;align-items:center;gap:8px;">
+                    <input id="search-input" type="text" placeholder="🔍 상품 검색 (예: 닭, 냉장)"
+                           style="padding:8px 12px;border:1px solid #d1d5db;border-radius:8px;
+                                  font-size:13px;outline:none;width:200px;">
+                </div>
+            </div>
+            <table style="width:100%;border-collapse:collapse;text-align:center;font-size:14px;">
+                <thead>
+                    <tr style="background:#f9fafb;border-bottom:2px solid #166534;">
+                        <th style="padding:12px;color:#333;">ID</th>
+                        <th style="padding:12px;color:#333;">이미지</th>
+                        <th style="padding:12px;color:#333;">상품명</th>
+                        <th style="padding:12px;color:#333;">판매가</th>
+                        <th style="padding:12px;color:#333;">카테고리</th>
+                        <th style="padding:12px;color:#333;">관리</th>
+                    </tr>
+                </thead>
+                <tbody id="product-list-body"></tbody>
+            </table>
+            <div style="display:flex;justify-content:center;gap:5px;margin-top:25px;" id="pagination-container"></div>
+        </div>
+
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer__inner">
+      <div class="footer__links" id="footerLinks"></div>
+      <h3 id="footerTitle"></h3>
+      <div class="footer__grid" id="footerGrid"></div>
+      <div class="footer__infoRow">
+        <div class="footer__info" id="footerInfo"></div>
+        <a href="./index.html" class="footer__logo">초록마을</a>
+      </div>
+      <p class="footer__copy" id="footerCopy">© clone practice page (for learning)</p>
+    </div>
+  </footer>
+
+  <script src="./js/auth.js"></script>
+  <script src="./js/main.js"></script>
+  <script src="./js/chatbot.js"></script>
+  <script src="./js/ai_register.js"></script> </body>
+</html>

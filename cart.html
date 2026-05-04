@@ -1,0 +1,545 @@
+<!doctype html>
+<html lang="ko">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>초록마을 - 장바구니</title>
+  <link rel="stylesheet" href="./css/reset.css" />
+  <link rel="stylesheet" href="./css/common.css" />
+  <style>
+    .cart-wrap {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 32px 16px 100px;
+    }
+
+    .cart-title {
+      font-size: 28px;
+      font-weight: 900;
+      letter-spacing: -1px;
+      margin: 0 0 8px;
+    }
+
+    .cart-subtitle {
+      font-size: 13px;
+      color: var(--muted);
+      margin: 0 0 24px;
+    }
+
+    .login-nudge {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 20px;
+      border-radius: 14px;
+      background: var(--green-soft);
+      border: 1px solid #cfe0bd;
+      margin-bottom: 20px;
+      font-size: 14px;
+      gap: 12px;
+    }
+
+    .login-nudge a {
+      font-weight: 800;
+      color: var(--green-dark);
+      text-decoration: none;
+      white-space: nowrap;
+    }
+
+    .cart-item {
+      display: grid;
+      grid-template-columns: 96px 1fr auto;
+      gap: 16px;
+      align-items: center;
+      padding: 20px;
+      background: #fff;
+      border-radius: 20px;
+      border: 1px solid #ebeee6;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, .05);
+      margin-bottom: 14px;
+    }
+
+    .ci-img {
+      width: 96px;
+      height: 96px;
+      border-radius: 14px;
+      object-fit: cover;
+      background: #f1f3ec;
+    }
+
+    .ci-name {
+      font-weight: 800;
+      font-size: 15px;
+      margin: 0 0 6px;
+    }
+
+    .ci-price {
+      font-size: 18px;
+      font-weight: 900;
+      color: var(--green-dark);
+    }
+
+    .ci-tag {
+      font-size: 12px;
+      color: #6b7280;
+      border: 1px solid #e5e7eb;
+      padding: 2px 8px;
+      border-radius: 8px;
+      display: inline-block;
+      margin-top: 6px;
+    }
+
+    .ci-right {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 10px;
+    }
+
+    .qty-ctrl {
+      display: flex;
+      align-items: center;
+      height: 42px;
+      border: 1px solid #dfe5d8;
+      border-radius: 12px;
+      overflow: hidden;
+    }
+
+    .qty-ctrl button {
+      width: 42px;
+      height: 100%;
+      border: none;
+      background: #f8faf5;
+      cursor: pointer;
+      font-size: 18px;
+      font-weight: 700;
+      color: #374151;
+    }
+
+    .qty-ctrl button:hover {
+      background: var(--green-soft);
+    }
+
+    .qty-ctrl span {
+      width: 40px;
+      text-align: center;
+      font-weight: 800;
+      font-size: 15px;
+    }
+
+    .ci-subtotal {
+      font-weight: 800;
+      font-size: 15px;
+    }
+
+    .del-btn {
+      background: none;
+      border: 1px solid #fee2e2;
+      color: #ef4444;
+      border-radius: 10px;
+      padding: 5px 12px;
+      cursor: pointer;
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .del-btn:hover {
+      background: #fee2e2;
+    }
+
+    .cart-empty {
+      display: none;
+      text-align: center;
+      padding: 80px 20px;
+    }
+
+    .cart-empty p {
+      font-size: 20px;
+      color: #9ca3af;
+      margin-bottom: 20px;
+    }
+
+    .cart-empty a {
+      color: var(--green-dark);
+      font-weight: 800;
+      text-decoration: none;
+    }
+
+    .cart-summary {
+      display: none;
+      background: #fff;
+      border-radius: 24px;
+      border: 1px solid #ebeee6;
+      padding: 28px;
+      margin-top: 24px;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, .05);
+    }
+
+    .s-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 0;
+      border-bottom: 1px dashed #e5e7eb;
+      font-size: 15px;
+    }
+
+    .s-row:last-of-type {
+      border-bottom: none;
+    }
+
+    .s-total {
+      font-size: 24px;
+      font-weight: 900;
+      color: var(--green-dark);
+    }
+
+    .checkout-btn {
+      width: 100%;
+      height: 60px;
+      margin-top: 20px;
+      border: none;
+      border-radius: 18px;
+      background: linear-gradient(135deg, var(--green-dark), var(--green));
+      color: #fff;
+      font-size: 18px;
+      font-weight: 800;
+      cursor: pointer;
+    }
+
+    .checkout-btn:hover {
+      opacity: .9;
+    }
+
+    @media (max-width:640px) {
+      .cart-item {
+        grid-template-columns: 72px 1fr;
+      }
+
+      .ci-right {
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: flex-start;
+        grid-column: 1 / -1;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <header class="top" id="siteHeader">
+    <div class="topbar">
+      <div class="topbar__inner">
+        <div class="topbar__left"><span>하루 만에 도착하는 초록마을 배송</span></div>
+        <div class="topbar__right" id="topLinks"></div>
+      </div>
+    </div>
+    <div class="top__inner">
+      <a href="./index.html" class="brand" id="brand">초록마을</a>
+      <div class="tools">
+        <button class="iconbtn" type="button" aria-label="마이페이지">👤</button>
+        <button class="iconbtn" type="button" aria-label="장바구니">🛒</button>
+      </div>
+    </div>
+    <div class="navrow">
+      <div class="navrow__inner">
+        <button class="allcat" type="button">☰ 전체카테고리</button>
+        <nav class="nav2" id="nav2"></nav>
+      </div>
+    </div>
+  </header>
+
+  <div class="cart-wrap">
+    <h1 class="cart-title">🛒 장바구니</h1>
+    <p class="cart-subtitle">담긴 상품을 확인하고 구매해보세요</p>
+
+    <div class="login-nudge" id="loginNudge" style="display:none;">
+      <span>🌿 로그인하면 어떤 기기에서도 장바구니가 유지돼요!</span>
+      <a href="./login.html">로그인하기 →</a>
+    </div>
+
+    <div id="cartItems"></div>
+
+    <div class="cart-empty" id="cartEmpty">
+      <p>장바구니가 비어 있어요 🥲</p>
+      <a href="./index.html">쇼핑 계속하기 →</a>
+    </div>
+
+    <div class="cart-summary" id="cartSummary">
+      <div class="s-row"><span>상품 합계</span><span id="sSubtotal">0원</span></div>
+      <div class="s-row"><span>배송비</span><span id="sShipping">3,000원</span></div>
+      <div class="s-row">
+        <span style="font-weight:800;">최종 결제금액</span>
+        <span class="s-total" id="sTotal">0원</span>
+      </div>
+      <button class="checkout-btn" onclick="alert('결제 기능은 추후 구현 예정이에요!')">구매하기</button>
+    </div>
+  </div>
+
+  <script src="./js/auth.js"></script>
+  <script src="./js/chatbot.js"></script>
+  <script>
+    const API_BASE = "http://localhost:8000";
+    const LOCAL_KEY = "choroc_cart";
+    const CART_VERSION_KEY = "choroc_cart_version";
+    const CART_VERSION = "choroc-cart-default-v2";
+
+    function won(n) { return Number(n).toLocaleString("ko-KR") + "원"; }
+
+    // ── 기본 장바구니 2개 ──
+    // PPT 내용 유지: 비로그인/로그인 모두 localStorage를 화면 기준으로 사용하고,
+    // 로그인 상태에서는 MySQL cart_items에 동기화한다.
+    function getDefaultCartItems() {
+      return [
+        {
+          id: "init-101",
+          product_id: 101,
+          name: "무농약이상 로메인",
+          price: 2150,
+          image: "./img/26.webp",
+          tag: "냉장",
+          quantity: 1
+        },
+        {
+          id: "init-102",
+          product_id: 102,
+          name: "초록계란이 껍질째 먹는 사과(1.8kg)",
+          price: 21900,
+          image: "./img/23.webp",
+          tag: "냉장",
+          quantity: 1
+        }
+      ];
+    }
+
+    // ── localStorage 관리 ──
+    function localLoad() {
+      try {
+        const raw = localStorage.getItem(LOCAL_KEY);
+        const parsed = (raw && raw !== "null") ? JSON.parse(raw) : [];
+        return Array.isArray(parsed) ? parsed : [];
+      } catch { return []; }
+    }
+
+    function localSave(items) {
+      localStorage.setItem(LOCAL_KEY, JSON.stringify(items));
+    }
+
+    function hasCartStorage() {
+      return localStorage.getItem(LOCAL_KEY) !== null;
+    }
+
+    // 프론트 data.json 상품 ID(101~117)를 DB products.id(1~17) 기준으로 비교하기 위한 변환
+    function toDbProductId(productId) {
+      const n = Number(productId);
+      if (n >= 101 && n <= 117) return n - 100;
+      return n;
+    }
+
+    // ── 최초 기본값 보장 ──
+    function checkAndInitDefaultCart() {
+      const savedVersion = localStorage.getItem(CART_VERSION_KEY);
+
+      // 이전 테스트/수정 과정에서 choroc_cart가 []로 남아 기본 2개가 안 뜨는 문제 방지
+      // 새 버전 최초 1회는 기본 상품 2개를 다시 세팅한다.
+      if (savedVersion !== CART_VERSION) {
+        const defaults = getDefaultCartItems();
+        localSave(defaults);
+        localStorage.setItem(CART_VERSION_KEY, CART_VERSION);
+        localStorage.setItem("cart_initialized", "true");
+        return defaults;
+      }
+
+      // 이후부터는 사용자가 삭제한 상태도 존중한다.
+      // 즉, choroc_cart 키가 있으면 []라도 그대로 사용한다.
+      if (hasCartStorage()) return localLoad();
+
+      const defaults = getDefaultCartItems();
+      localSave(defaults);
+      localStorage.setItem("cart_initialized", "true");
+      return defaults;
+    }
+
+    let cartData = [];
+    let isLogin = false;
+
+    // ── 초기화 진입점 ──
+    async function init() {
+      const token = localStorage.getItem("choroc_token");
+      isLogin = !!token;
+
+      if (typeof window.renderAuthTopLinks === "function") {
+        window.renderAuthTopLinks();
+      }
+
+      // 화면은 항상 localStorage 기준으로 먼저 렌더링
+      cartData = checkAndInitDefaultCart();
+      render();
+
+      // 로그인 상태이면 MySQL cart_items에 보조 동기화
+      // 단, 서버가 비어 있어도 localStorage 화면을 지우지 않는다.
+      if (isLogin) {
+        await syncWithServer(token);
+      }
+    }
+
+    async function syncWithServer(token) {
+      try {
+        const headers = {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${token}`,
+        };
+
+        const localItems = localLoad();
+
+        // 1. 현재 서버 장바구니 조회
+        let serverItems = [];
+        const firstRes = await fetch(`${API_BASE}/api/cart`, { headers });
+        if (firstRes.ok) {
+          const data = await firstRes.json();
+          serverItems = Array.isArray(data.items) ? data.items : [];
+        }
+
+        // 2. localStorage 장바구니를 서버에 동기화
+        // 이미 서버에 있는 상품이면 수량을 맞추고, 없으면 새로 추가한다.
+        for (const item of localItems) {
+          const dbProductId = toDbProductId(item.product_id);
+          const matched = serverItems.find(s => Number(s.product_id) === Number(dbProductId));
+
+          if (matched) {
+            item.server_cart_id = matched.id;
+            if (Number(matched.quantity) !== Number(item.quantity)) {
+              await fetch(`${API_BASE}/api/cart/${matched.id}`, {
+                method: "PATCH",
+                headers,
+                body: JSON.stringify({ quantity: item.quantity }),
+              });
+            }
+          } else {
+            const postRes = await fetch(`${API_BASE}/api/cart`, {
+              method: "POST",
+              headers,
+              body: JSON.stringify({ product_id: item.product_id, quantity: item.quantity }),
+            });
+            if (postRes.ok) {
+              // 방금 추가한 뒤 서버 id를 다시 가져오기 위해 나중에 재조회
+            } else {
+              console.warn("장바구니 서버 저장 실패:", item.product_id);
+            }
+          }
+        }
+
+        // 3. 서버 재조회 후 localStorage 항목에 server_cart_id 연결
+        const secondRes = await fetch(`${API_BASE}/api/cart`, { headers });
+        if (secondRes.ok) {
+          const data = await secondRes.json();
+          serverItems = Array.isArray(data.items) ? data.items : [];
+        }
+
+        let latestLocal = localLoad();
+
+        // localStorage가 완전히 비어 있고 서버에만 데이터가 있으면 서버 데이터로 복구
+        if (latestLocal.length === 0 && serverItems.length > 0) {
+          latestLocal = serverItems;
+        } else {
+          latestLocal.forEach(item => {
+            const dbProductId = toDbProductId(item.product_id);
+            const matched = serverItems.find(s => Number(s.product_id) === Number(dbProductId));
+            if (matched) item.server_cart_id = matched.id;
+          });
+        }
+
+        cartData = latestLocal;
+        localSave(cartData);
+        render();
+      } catch (e) {
+        console.warn("서버 연결 실패, 로컬 모드로 동작합니다.", e);
+      }
+    }
+
+    function render() {
+      const wrap = document.getElementById("cartItems");
+      const empty = document.getElementById("cartEmpty");
+      const summary = document.getElementById("cartSummary");
+
+      if (!cartData || cartData.length === 0) {
+        wrap.innerHTML = "";
+        empty.style.display = "block";
+        summary.style.display = "none";
+        return;
+      }
+
+      empty.style.display = "none";
+      summary.style.display = "block";
+      wrap.innerHTML = cartData.map(item => `
+      <div class="cart-item" data-id="${item.id}">
+        <img class="ci-img" src="${item.image}" alt="${item.name}" onerror="this.src='https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=200&q=60'" />
+        <div>
+          <p class="ci-name">${item.name}</p>
+          <p class="ci-price">${won(item.price)}</p>
+          ${item.tag ? `<span class="ci-tag">${item.tag}</span>` : ""}
+        </div>
+        <div class="ci-right">
+          <div class="qty-ctrl">
+            <button onclick="changeQty('${item.id}', ${item.quantity - 1})">−</button>
+            <span>${item.quantity}</span>
+            <button onclick="changeQty('${item.id}', ${item.quantity + 1})">+</button>
+          </div>
+          <span class="ci-subtotal">${won(item.price * item.quantity)}</span>
+          <button class="del-btn" onclick="removeItem('${item.id}')">삭제</button>
+        </div>
+      </div>
+    `).join("");
+      updateTotal();
+    }
+
+    function updateTotal() {
+      const sub = cartData.reduce((s, i) => s + i.price * i.quantity, 0);
+      const shipping = sub >= 40000 ? 0 : 3000;
+      document.getElementById("sSubtotal").textContent = won(sub);
+      document.getElementById("sShipping").textContent = shipping === 0 ? "무료 🎉" : won(shipping);
+      document.getElementById("sTotal").textContent = won(sub + shipping);
+    }
+
+    async function changeQty(id, newQty) {
+      if (newQty < 1) return removeItem(id);
+
+      const item = cartData.find(i => String(i.id) === String(id));
+      if (item) item.quantity = newQty;
+      localSave(cartData);
+      render();
+
+      if (isLogin && item?.server_cart_id) {
+        const token = localStorage.getItem("choroc_token");
+        await fetch(`${API_BASE}/api/cart/${item.server_cart_id}`, {
+          method: "PATCH",
+          headers: { "Content-Type": "application/json", "Authorization": `Bearer ${token}` },
+          body: JSON.stringify({ quantity: newQty }),
+        });
+      }
+    }
+
+    async function removeItem(id) {
+      if (!confirm("삭제하시겠습니까?")) return;
+
+      const target = cartData.find(i => String(i.id) === String(id));
+      cartData = cartData.filter(i => String(i.id) !== String(id));
+      localSave(cartData); // 비어 있어도 []로 저장하여 사용자의 삭제 상태 유지
+      render();
+
+      if (isLogin && target?.server_cart_id) {
+        const token = localStorage.getItem("choroc_token");
+        await fetch(`${API_BASE}/api/cart/${target.server_cart_id}`, {
+          method: "DELETE",
+          headers: { "Authorization": `Bearer ${token}` },
+        });
+      }
+    }
+
+    document.addEventListener("DOMContentLoaded", init);
+  </script>
+</body>
+
+</html>

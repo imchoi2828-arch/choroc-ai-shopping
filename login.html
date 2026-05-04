@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>초록마을 - 로그인 / 회원가입</title>
+  <link rel="stylesheet" href="./css/reset.css" />
+  <link rel="stylesheet" href="./css/common.css" />
+  <style>
+    body { background: linear-gradient(160deg, #f0f9e8 0%, #ffffff 60%); }
+
+    .login-page {
+      min-height: calc(100vh - 80px);
+      display: flex; align-items: center; justify-content: center;
+      padding: 40px 16px;
+    }
+
+    .login-box {
+      width: 100%; max-width: 460px;
+      background: #fff; border-radius: 28px;
+      box-shadow: 0 16px 48px rgba(0,0,0,.1); padding: 40px;
+    }
+
+    .login-logo {
+      text-align: center; font-size: 38px; font-weight: 900;
+      color: var(--green-dark); letter-spacing: -1.5px; margin-bottom: 30px;
+    }
+
+    /* 탭 버튼 */
+    .tab-btns {
+      display: grid; grid-template-columns: 1fr 1fr;
+      background: #f5f7f1; border-radius: 14px;
+      padding: 4px; margin-bottom: 28px; gap: 4px;
+    }
+    .tab-btn {
+      padding: 12px; border: none; border-radius: 10px;
+      background: transparent; font-weight: 700; cursor: pointer;
+      color: #6b7280; transition: .2s;
+    }
+    .tab-btn.active {
+      background: #fff; color: var(--green-dark);
+      box-shadow: 0 2px 8px rgba(0,0,0,.08);
+    }
+
+    /* 입력 필드 */
+    .form-group { margin-bottom: 16px; }
+    .form-group label {
+      display: block; font-size: 13px;
+      font-weight: 700; color: #4b5563; margin-bottom: 8px;
+    }
+    .form-group input {
+      width: 100%; height: 52px; padding: 0 16px;
+      border: 1px solid #dfe6d8; border-radius: 14px;
+      outline: none; font-size: 15px; transition: .2s;
+    }
+    .form-group input:focus {
+      border-color: var(--green);
+      box-shadow: 0 0 0 3px rgba(106,173,53,.15);
+    }
+
+    /* 제출 버튼 */
+    .submit-btn {
+      width: 100%; height: 56px; border: none;
+      border-radius: 16px;
+      background: linear-gradient(135deg, var(--green-dark), var(--green));
+      color: #fff; font-size: 16px; font-weight: 800;
+      cursor: pointer; margin-top: 8px; transition: opacity .2s;
+    }
+    .submit-btn:hover { opacity: .88; }
+    .submit-btn:disabled { opacity: .5; cursor: not-allowed; }
+
+    /* 메시지 박스 */
+    .msg {
+      display: none; font-size: 13px; font-weight: 700;
+      text-align: center; margin-top: 12px;
+      padding: 10px; border-radius: 10px;
+    }
+    .msg.error   { color: var(--danger); background: #fff5f5; }
+    .msg.success { color: var(--green-dark); background: var(--green-soft); }
+  </style>
+</head>
+<body>
+
+  <header class="top">
+    <div class="top__inner">
+      <a href="./index.html" class="brand">초록마을</a>
+    </div>
+  </header>
+
+  <div class="login-page">
+    <div class="login-box">
+      <div class="login-logo">🌿 초록마을</div>
+
+      <!-- 탭 전환 버튼 -->
+      <div class="tab-btns">
+        <button class="tab-btn" id="tabLogin"  onclick="showTab('login')">로그인</button>
+        <button class="tab-btn" id="tabSignup" onclick="showTab('signup')">회원가입</button>
+      </div>
+
+      <!-- ─── 로그인 폼 ─── -->
+      <div id="loginForm">
+        <div class="form-group">
+          <label>이메일</label>
+          <input type="email" id="loginEmail" placeholder="이메일을 입력하세요" />
+        </div>
+        <div class="form-group">
+          <label>비밀번호</label>
+          <input type="password" id="loginPw" placeholder="비밀번호를 입력하세요" />
+        </div>
+        <button class="submit-btn" id="loginBtn" onclick="doLogin()">로그인</button>
+        <div class="msg error" id="loginError"></div>
+      </div>
+
+      <!-- ─── 회원가입 폼 ─── -->
+      <div id="signupForm" style="display:none;">
+        <div class="form-group">
+          <label>이름</label>
+          <input type="text" id="signupName" placeholder="이름을 입력하세요" />
+        </div>
+        <div class="form-group">
+          <label>이메일</label>
+          <input type="email" id="signupEmail" placeholder="이메일을 입력하세요" />
+        </div>
+        <div class="form-group">
+          <label>비밀번호</label>
+          <input type="password" id="signupPw" placeholder="6자 이상 입력하세요" />
+        </div>
+        <button class="submit-btn" id="signupBtn" onclick="doSignup()">회원가입</button>
+        <div class="msg error"   id="signupError"></div>
+        <div class="msg success" id="signupOk"></div>
+      </div>
+
+    </div>
+  </div>
+
+  <script src="./js/login.js"></script>
+</body>
+</html>

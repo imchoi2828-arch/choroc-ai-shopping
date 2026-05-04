@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>초록마을 클론 메인</title>
+  <link rel="stylesheet" href="./css/reset.css" />
+  <link rel="stylesheet" href="./css/common.css" />
+  <link rel="stylesheet" href="./css/main.css" />
+</head>
+<body>
+
+  <header class="top">
+    <div class="topbar">
+      <div class="topbar__inner">
+        <div class="topbar__left">
+          <span>하루 만에 도착하는 초록마을 배송</span>
+        </div>
+        <div class="topbar__right" id="topLinks"></div>
+      </div>
+    </div>
+
+    <div class="top__inner">
+      <a href="./index.html" class="brand" id="brand">초록마을</a>
+
+      <div class="tools">
+        <label class="searchbox" aria-label="검색">
+          <input class="search" type="text" placeholder="상품을 검색하세요" />
+          <button class="searchbtn" type="button" aria-label="검색">⌕</button>
+        </label>
+
+        <button class="iconbtn" type="button" aria-label="마이페이지">👤</button>
+        <button class="iconbtn" type="button" aria-label="장바구니">🛒</button>
+      </div>
+    </div>
+
+    <div class="navrow">
+      <div class="navrow__inner">
+        <button class="allcat" type="button">
+          ☰ 전체카테고리
+        </button>
+        <nav class="nav2" id="nav2"></nav>
+        
+        <a href="ai_register.html" class="ai-admin-btn">AI 상품등록 (Admin)</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="hero">
+      <div class="hero__viewport" id="heroViewport"></div>
+
+      <div class="hero__controls">
+        <button class="circlebtn" id="heroPrev" aria-label="이전">‹</button>
+        <div class="hero__fraction">
+          <span id="heroCurrent">1</span> / <span id="heroTotal">1</span>
+        </div>
+        <button class="circlebtn" id="heroNext" aria-label="다음">›</button>
+      </div>
+    </section>
+
+    <div id="sections"></div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer__inner">
+      <div class="footer__links" id="footerLinks"></div>
+
+      <h3 id="footerTitle"></h3>
+      <div class="footer__grid" id="footerGrid"></div>
+
+      <div class="footer__infoRow">
+        <div class="footer__info" id="footerInfo"></div>
+        <a href="./index.html" class="footer__logo">초록마을</a>
+      </div>
+
+      <p class="footer__copy" id="footerCopy">© clone practice page (for learning)</p>
+    </div>
+  </footer>
+
+  <script src="./js/auth.js"></script>
+  <script src="./js/main.js"></script>
+  <script src="./js/chatbot.js"></script>
+</body>
+</html>

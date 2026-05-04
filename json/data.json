@@ -1,0 +1,268 @@
+{
+  "site": {
+    "brand": "초록마을 (clone practice)",
+    "nav": [
+      "OnSale",
+      "초록베베",
+      "맛있는 끝장 25%",
+      "기획전",
+      "매장안내"
+    ],
+    "topLinks": [
+      "회원가입",
+      "로그인",
+      "마이페이지",
+      "고객센터"
+    ],
+    "topNav": [
+      "베스트",
+      "특가",
+      "신상품",
+      "기획전",
+      "이벤트"
+    ]
+  },
+  "heroBanners": [
+    {
+      "title": "산지의 신선함 그대로!",
+      "subtitle": "3월의 수산",
+      "desc": "신선하게 담은 제철 수산물",
+      "image": "https://images.unsplash.com/photo-1553621042-f6e147245754?auto=format&fit=crop&w=1600&q=80",
+      "badge": "특가"
+    },
+    {
+      "title": "봄 제철 과일 모음",
+      "subtitle": "달콤한 과일",
+      "desc": "오늘 바로 맛보세요",
+      "image": "https://images.unsplash.com/photo-1571771894821-ce9b6c11b08e?auto=format&fit=crop&w=1600&q=80",
+      "badge": "추천"
+    },
+    {
+      "title": "간편식/반찬",
+      "subtitle": "바쁜 날엔",
+      "desc": "간단하고 맛있게",
+      "image": "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=1600&q=80",
+      "badge": "NEW"
+    }
+  ],
+  "sections": [
+    {
+      "id": "recommend",
+      "title": "장바구니로 바로 클릭! 정착 추천 상품",
+      "subtitle": "처음이면 이 조합부터 시작해보세요",
+      "type": "productCarousel",
+      "items": [
+        {
+          "id": 101,
+          "name": "무농약이상 로메인",
+          "price": 2150,
+          "originalPrice": 2400,
+          "discountPercent": 10,
+          "tag": "냉장",
+          "image": "./img/26.webp"
+        },
+        {
+          "id": 102,
+          "name": "초록계란이 껍질째 먹는 사과(1.8kg)",
+          "price": 21900,
+          "originalPrice": null,
+          "discountPercent": null,
+          "tag": "냉장",
+          "image": "./img/23.webp"
+        },
+        {
+          "id": 103,
+          "name": "국내산 해물모둠(250g)",
+          "price": 12900,
+          "originalPrice": 15900,
+          "discountPercent": 18,
+          "tag": "냉동",
+          "image": "./img/19.webp"
+        },
+        {
+          "id": 104,
+          "name": "유기농 귀리혼합 5곡(1.5kg)",
+          "price": 14500,
+          "originalPrice": 18200,
+          "discountPercent": 20,
+          "tag": null,
+          "image": "./img/18.webp"
+        },
+        {
+          "id": 105,
+          "name": "초록베베 국산콩 순한 비빔간장(180mL)",
+          "price": 7900,
+          "originalPrice": null,
+          "discountPercent": null,
+          "tag": null,
+          "image": "./img/15.webp"
+        }
+      ]
+    },
+    {
+      "id": "eventBanner",
+      "title": "최대 40% 할인 기획, 우리 가족 건강관리템",
+      "subtitle": "",
+      "type": "wideBanner",
+      "image": "https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=1600&q=80"
+    },
+    {
+      "id": "weeklyChoroc",
+      "title": "이번주 초록가 아이템!",
+      "subtitle": "지금 많이 담는 인기템",
+      "type": "productCarousel",
+      "items": [
+        {
+          "id": 201,
+          "name": "맛있는 참치(150g)",
+          "price": 3330,
+          "originalPrice": 4170,
+          "discountPercent": 20,
+          "tag": null,
+          "image": "./img/8.webp"
+        },
+        {
+          "id": 202,
+          "name": "무농약 팝콘옥수수(400g)",
+          "price": 6600,
+          "originalPrice": 8900,
+          "discountPercent": 25,
+          "tag": null,
+          "image": "./img/22.webp"
+        },
+        {
+          "id": 203,
+          "name": "우리밀 칼국수(400g)",
+          "price": 2980,
+          "originalPrice": 3800,
+          "discountPercent": 21,
+          "tag": null,
+          "image": "./img/7.webp"
+        },
+        {
+          "id": 204,
+          "name": "무항생제 한우 등심구이용(냉장)(300g)",
+          "price": 49000,
+          "originalPrice": 62000,
+          "discountPercent": 20,
+          "tag": "냉장",
+          "image": "./img/9.webp"
+        }
+      ]
+    },
+    {
+      "id": "weeklyMust",
+      "title": "이번주 장바구니 필수템!",
+      "subtitle": "활용도 높은 상품들로 모아봤어요",
+      "type": "productCarousel",
+      "items": [
+        {
+          "id": 301,
+          "name": "까나리액젓(900mL)",
+          "price": 8800,
+          "originalPrice": 9700,
+          "discountPercent": 10,
+          "tag": null,
+          "image": "./img/25.webp"
+        },
+        {
+          "id": 302,
+          "name": "무농약이상 오이(2입)",
+          "price": 3980,
+          "originalPrice": 4700,
+          "discountPercent": 15,
+          "tag": "냉장",
+          "image": "./img/4.webp"
+        },
+        {
+          "id": 303,
+          "name": "신선한 유기농 우유(900mL)",
+          "price": 6500,
+          "originalPrice": null,
+          "discountPercent": null,
+          "tag": "냉장",
+          "image": "./img/3.webp"
+        },
+        {
+          "id": 304,
+          "name": "구운 김(20g/10매)",
+          "price": 3950,
+          "originalPrice": 4500,
+          "discountPercent": 12,
+          "tag": null,
+          "image": "./img/12.webp"
+        }
+      ]
+    },
+    {
+      "id": "easyCook",
+      "title": "요리시간 단축템",
+      "subtitle": "빠르게 차려먹는 재료들",
+      "type": "productCarousel",
+      "items": [
+        {
+          "id": 401,
+          "name": "노르웨이 생연어회(150g)",
+          "price": 16900,
+          "originalPrice": null,
+          "discountPercent": null,
+          "tag": null,
+          "image": "./img/17.webp"
+        },
+        {
+          "id": 402,
+          "name": "노르웨이 생연어필렛(200g)",
+          "price": 17900,
+          "originalPrice": null,
+          "discountPercent": null,
+          "tag": null,
+          "image": "./img/16.webp"
+        },
+        {
+          "id": 403,
+          "name": "무항생제 한돈 삼겹살구이용(냉장/500g)",
+          "price": 29000,
+          "originalPrice": null,
+          "discountPercent": null,
+          "tag": null,
+          "image": "./img/20.webp"
+        },
+        {
+          "id": 404,
+          "name": "무항생제 닭볶음탕용(냉장/900g)",
+          "price": 12500,
+          "originalPrice": null,
+          "discountPercent": null,
+          "tag": "냉장",
+          "image": "./img/21.webp"
+        }
+      ]
+    }
+  ],
+  "footer": {
+    "servicesTitle": "초록마을 주요 서비스",
+    "services": [
+      "정기배송",
+      "매장찾기",
+      "자주구매",
+      "선물하기",
+      "고객센터"
+    ],
+    "links": [
+      "회사소개",
+      "상품입점상담",
+      "가맹안내",
+      "채용정보",
+      "이용약관",
+      "개인정보처리방침",
+      "이메일주소 무단수집금지"
+    ],
+    "infoLines": [
+      "경기도 김포시 고촌읍 아라육로57번길 126, 407호",
+      "대표이사: 김재연 | 사업자등록번호: 105-86-05788",
+      "고객센터: 080-023-0023 | 창업문의: 1544-6266",
+      "E-mail: chorocweb@choroc.com"
+    ],
+    "copyright": "© clone practice page (for learning)"
+  }
+}
