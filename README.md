@@ -12,7 +12,7 @@
 |---|---|
 | GitHub Pages 화면 확인 | https://imchoi2828-arch.github.io/choroc-ai-shopping/ |
 | GitHub Repository | https://github.com/imchoi2828-arch/choroc-ai-shopping |
-| 프로젝트 발표 PPT | TODO: 여기에 Google Drive PPT 링크 입력 |
+
 
 > ※ GitHub Pages는 정적 호스팅 환경으로 화면 구성 확인 용도입니다.  
 > 메인 UI와 기본 상품 화면은 JSON 데이터를 기반으로 확인할 수 있으며,  
